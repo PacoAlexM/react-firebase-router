@@ -3,12 +3,17 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 
 const Navbar = () => {
-    const { user, setUser } = useContext(UserContext)
+    const { user, logout } = useContext(UserContext)
     const navigate = useNavigate()
 
-    const handleClickLogout = () => {
-        setUser(false)
-        navigate('/login')
+    const handleOnClick = async () => {
+        try {
+            await logout()
+        } catch (error) {
+            const { code } = error
+
+            console.log(code)
+        }
     }
 
     return (
@@ -16,10 +21,16 @@ const Navbar = () => {
             {
                 user ? (
                     <>
-                        <NavLink to="/">Home</NavLink>
-                        <button onClick={ handleClickLogout }>Logout</button>
+                        <NavLink to="/">Home | </NavLink>
+                        <button type="button" onClick={ handleOnClick }>Logout</button>
                     </>
-                ) : (<NavLink to="/login">Login</NavLink>) }
+                ) : (
+                    <>
+                        <NavLink to="/login">Login | </NavLink>
+                        <NavLink to="/signin">Signin</NavLink>
+                    </>
+                )
+            }
         </div>
     )
 }
