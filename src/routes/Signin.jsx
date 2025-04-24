@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 
 const Signin = () => {
@@ -7,12 +8,15 @@ const Signin = () => {
 
     const { createUser } = useContext(UserContext)
 
+    const navigate = useNavigate()
+
     const handleOnSubmit = async e => {
         e.preventDefault()
         
         try {
             await createUser(email, password)
-            console.log('User created')
+            // console.log('User created')
+            navigate('/')
         } catch (error) {
             const { code } = error
             console.log(code)
