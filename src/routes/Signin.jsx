@@ -2,6 +2,10 @@ import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 import { useForm } from 'react-hook-form'
+import { firebaseErrors } from '../utils/firebaseError'
+import { formValidate } from '../utils/formValidate'
+import InputError from '../components/InputError'
+import InputForm from '../components/InputForm'
 
 const Signin = () => {
     // const [email, setEmail] = useState('tester@mail.com')
@@ -17,6 +21,8 @@ const Signin = () => {
         }
     })
 
+    const { required, patternEmail, minLength, validateTrim, validateEquals } = formValidate()
+    
     const onSubmit = async ({ email, password }) => {
         try {
             await createUser(email, password)
@@ -25,9 +31,11 @@ const Signin = () => {
             const { code } = error
             console.log(code)
 
-            if (code === 'auth/email-already-in-use') return setError('email', { message: 'This email is already in use' }) // alert('This email is already in use')
-            if (code === 'auth/invalid-email') return setError('email', { message: 'This is an invalid email' }) // alert('This is an invalid email')
-            if (code === 'auth/weak-password') return setError('password', { message: 'Password must be at least 6 characters' }) // alert('Password must be at least 6 characters')
+            // if (code === 'auth/email-already-in-use') return setError('email', { message: 'This email is already in use' }) // alert('This email is already in use')
+            // if (code === 'auth/invalid-email') return setError('email', { message: 'This is an invalid email' }) // alert('This is an invalid email')
+            // if (code === 'auth/weak-password') return setError('password', { message: 'Password must be at least 6 characters' }) // alert('Password must be at least 6 characters')
+
+            setError('firebase', { message: firebaseErrors(code) })
         }
     }
 
@@ -51,55 +59,43 @@ const Signin = () => {
     return (
         <>
             <h1>Signin</h1>
+            {/* errors.firebase && <p>{ errors.firebase.message }</p> */}
+            <InputError error={ errors.firebase } />
             <form onSubmit={ handleSubmit(onSubmit) }>
-                <input type="email" placeholder="address@mail.com"
+                <InputForm type="email" placeholder="address@mail.com"
                 {
                     ...register('email', {
-                        required: {
-                            value: true,
-                            message: 'This field is required'
-                        },
-                        pattern: {
-                            value: /[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/,
-                            message: 'This is an invalid email'
-                        }
+                        required,
+                        pattern: patternEmail
                     })
                 }
-                />
-                { errors.email && <p>{ errors.email.message }</p> }
-                <input type="password" placeholder="Type your password"
+                >
+                    <InputError error={ errors.email } />
+                </InputForm>
+                <InputForm type="password" placeholder="Type your password"
                 {
                     ...register('password', {
-                        required: {
-                            value: true,
-                            message: 'This field is required'
-                        },
-                        minLength: {
-                            value: 6,
-                            message: 'Your password must be at least 6 characters'
-                        },
-                        validate: {
-                            trim: v => !v.trim() ? 'This field is required' : true
-                        }
+                        required,
+                        minLength,
+                        validate: validateTrim
                     })
                 }
-                />
-                { errors.password && <p>{ errors.password.message }</p> }
-                <input type="password" placeholder="Confirm your password"
+                >
+                    <InputError error={ errors.password } />
+                </InputForm>
+                <InputForm type="password" placeholder="Confirm your password"
                 {
                     ...register('repassword', {
                         required: {
                             value: true,
                             message: 'This field is required'
                         },
-                        validate: {
-                            trim: v => !v.trim() ? 'This field is required' : true,
-                            equals: v => v === getValues('password') || 'The password doesn\'t match'
-                        }
+                        validate: validateEquals(getValues)
                     })
                 }
-                />
-                { errors.repassword && <p>{ errors.repassword.message }</p> }
+                >
+                    <InputError error={ errors.repassword } />
+                </InputForm>
                 <button type="submit">Signin</button>
             </form>
         </>
