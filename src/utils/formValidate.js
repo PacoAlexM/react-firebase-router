@@ -15,9 +15,9 @@ export const formValidate = (getValues) => {
         validateTrim: {
             trim: v => !v.trim() ? 'White spaces only aren\'t allowed' : true
         },
-        validateEquals(getValues) {
+        validateEquals (value) {
             return {
-                equals: v => v === getValues('password') || 'The password doesn\'t match'
+                equals: v => v === value || 'The password doesn\'t match'
             }
         }
     }

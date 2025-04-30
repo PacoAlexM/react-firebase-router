@@ -23,19 +23,19 @@ const Login = () => {
             await login(email, password)
             navegate('/')
         } catch (error) {
-            const { code } = error
-            console.log(code)
+            // const { code } = error
+            const { code, message } = firebaseErrors(error.code)
+            console.log(error.code)
 
-            setError('firebase', { message: firebaseErrors(code) })
+            setError(code, { message })
         }
     }
 
     return (
         <>
             <h1>Login</h1>
-            <InputError error={ errors.firebase } />
             <form onSubmit={ handleSubmit(onSubmit) }>
-                <InputForm type="email" placeholder="address@mail.com"
+                <InputForm type="email" placeholder="address@mail.com" label="Email" idElement="email"
                 {
                     ...register('email', {
                         required,
@@ -45,7 +45,7 @@ const Login = () => {
                 >
                     <InputError error={ errors.email } />
                 </InputForm>
-                <InputForm type="password" placeholder="Type your password"
+                <InputForm type="password" placeholder="Type your password" label="Password" idElement="password"
                 {
                     ...register('password', {
                         required,

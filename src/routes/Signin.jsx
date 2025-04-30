@@ -28,14 +28,15 @@ const Signin = () => {
             await createUser(email, password)
             navegate('/')
         } catch (error) {
-            const { code } = error
-            console.log(code)
+            // const { code } = error
+            const { code, message } = firebaseErrors(error.code)
+            console.log(error.code)
 
             // if (code === 'auth/email-already-in-use') return setError('email', { message: 'This email is already in use' }) // alert('This email is already in use')
             // if (code === 'auth/invalid-email') return setError('email', { message: 'This is an invalid email' }) // alert('This is an invalid email')
             // if (code === 'auth/weak-password') return setError('password', { message: 'Password must be at least 6 characters' }) // alert('Password must be at least 6 characters')
 
-            setError('firebase', { message: firebaseErrors(code) })
+            setError(code, { message })
         }
     }
 
@@ -60,7 +61,6 @@ const Signin = () => {
         <>
             <h1>Signin</h1>
             {/* errors.firebase && <p>{ errors.firebase.message }</p> */}
-            <InputError error={ errors.firebase } />
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <InputForm type="email" placeholder="address@mail.com"
                 {
@@ -90,7 +90,7 @@ const Signin = () => {
                             value: true,
                             message: 'This field is required'
                         },
-                        validate: validateEquals(getValues)
+                        validate: validateEquals(getValues('password'))
                     })
                 }
                 >
