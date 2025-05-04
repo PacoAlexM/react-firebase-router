@@ -6,6 +6,8 @@ import { firebaseErrors } from '../utils/firebaseError'
 import { formValidate } from '../utils/formValidate'
 import InputError from '../components/InputError'
 import InputForm from '../components/InputForm'
+import Title from '../components/Title'
+import Button from '../components/Button'
 
 const Signin = () => {
     // const [email, setEmail] = useState('tester@mail.com')
@@ -59,10 +61,10 @@ const Signin = () => {
 
     return (
         <>
-            <h1>Signin</h1>
+            <Title text="Signin" />
             {/* errors.firebase && <p>{ errors.firebase.message }</p> */}
             <form onSubmit={ handleSubmit(onSubmit) }>
-                <InputForm type="email" placeholder="address@mail.com"
+                <InputForm type="email" placeholder="address@mail.com" label="Email" idElement="email" error={ errors.email }
                 {
                     ...register('email', {
                         required,
@@ -72,7 +74,7 @@ const Signin = () => {
                 >
                     <InputError error={ errors.email } />
                 </InputForm>
-                <InputForm type="password" placeholder="Type your password"
+                <InputForm type="password" placeholder="Type your password" label="Password" idElement="password" error={ errors.password }
                 {
                     ...register('password', {
                         required,
@@ -83,7 +85,7 @@ const Signin = () => {
                 >
                     <InputError error={ errors.password } />
                 </InputForm>
-                <InputForm type="password" placeholder="Confirm your password"
+                <InputForm type="password" label="Confirm your password" idElement="repassword" error={ errors.repassword }
                 {
                     ...register('repassword', {
                         required: {
@@ -96,7 +98,7 @@ const Signin = () => {
                 >
                     <InputError error={ errors.repassword } />
                 </InputForm>
-                <button type="submit">Signin</button>
+                <Button buttonType="submit" text="Signin" />
             </form>
         </>
     )

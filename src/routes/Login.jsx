@@ -6,6 +6,8 @@ import { firebaseErrors } from '../utils/firebaseError'
 import InputError from '../components/InputError'
 import InputForm from '../components/InputForm'
 import { formValidate } from '../utils/formValidate'
+import Title from '../components/Title'
+import Button from '../components/Button'
 
 const Login = () => {
     const navegate = useNavigate()
@@ -33,9 +35,9 @@ const Login = () => {
 
     return (
         <>
-            <h1>Login</h1>
+            <Title text="Login" />
             <form onSubmit={ handleSubmit(onSubmit) }>
-                <InputForm type="email" placeholder="address@mail.com" label="Email" idElement="email"
+                <InputForm type="email" placeholder="address@mail.com" label="Email" idElement="email" error={ errors.email }
                 {
                     ...register('email', {
                         required,
@@ -45,7 +47,7 @@ const Login = () => {
                 >
                     <InputError error={ errors.email } />
                 </InputForm>
-                <InputForm type="password" placeholder="Type your password" label="Password" idElement="password"
+                <InputForm type="password" placeholder="Type your password" label="Password" idElement="password" error={ errors.password }
                 {
                     ...register('password', {
                         required,
@@ -56,7 +58,7 @@ const Login = () => {
                 >
                     <InputError error={ errors.password } />
                 </InputForm>
-                <button type="submit">Login</button>
+                <Button buttonType="submit" text="Login" />
             </form>
         </>
     )
