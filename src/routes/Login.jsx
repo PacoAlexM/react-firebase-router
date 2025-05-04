@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 import { useForm } from 'react-hook-form'
@@ -8,10 +8,12 @@ import InputForm from '../components/InputForm'
 import { formValidate } from '../utils/formValidate'
 import Title from '../components/Title'
 import Button from '../components/Button'
+import ButtonLoading from '../components/ButtonLoading'
 
 const Login = () => {
     const navegate = useNavigate()
     const { login } = useContext(UserContext)
+    const [loading, setLoading] = useState(false)
     const { register, handleSubmit, formState: { errors }, setError } = useForm({
         defaultValues: {
             email: 'tester@mail.com',
@@ -22,6 +24,7 @@ const Login = () => {
 
     const onSubmit = async ({ email, password }) => {
         try {
+            setLoading(true)
             await login(email, password)
             navegate('/')
         } catch (error) {
@@ -30,6 +33,8 @@ const Login = () => {
             console.log(error.code)
 
             setError(code, { message })
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -58,7 +63,7 @@ const Login = () => {
                 >
                     <InputError error={ errors.password } />
                 </InputForm>
-                <Button buttonType="submit" text="Login" />
+                { loading ? <ButtonLoading /> : <Button buttonType="submit" text="Login" /> }
             </form>
         </>
     )

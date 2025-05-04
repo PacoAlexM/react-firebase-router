@@ -8,10 +8,13 @@ import InputError from '../components/InputError'
 import InputForm from '../components/InputForm'
 import Title from '../components/Title'
 import Button from '../components/Button'
+import ButtonLoading from '../components/ButtonLoading'
 
 const Signin = () => {
     // const [email, setEmail] = useState('tester@mail.com')
     // const [password, setPassword] = useState('123456')
+
+    const [loading, setLoading] = useState(false)
 
     const navegate = useNavigate()
     const { createUser } = useContext(UserContext)
@@ -27,6 +30,7 @@ const Signin = () => {
     
     const onSubmit = async ({ email, password }) => {
         try {
+            setLoading(true)
             await createUser(email, password)
             navegate('/')
         } catch (error) {
@@ -39,6 +43,8 @@ const Signin = () => {
             // if (code === 'auth/weak-password') return setError('password', { message: 'Password must be at least 6 characters' }) // alert('Password must be at least 6 characters')
 
             setError(code, { message })
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -98,7 +104,7 @@ const Signin = () => {
                 >
                     <InputError error={ errors.repassword } />
                 </InputForm>
-                <Button buttonType="submit" text="Signin" />
+                { loading ? <ButtonLoading /> : <Button buttonType="submit" text="Create user" /> }
             </form>
         </>
     )
