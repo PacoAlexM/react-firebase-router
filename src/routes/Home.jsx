@@ -2,7 +2,6 @@ import Title from '../components/Title'
 import { useFirestore } from '../hooks/useFirestore'
 import { useEffect, useState } from 'react'
 import Button from '../components/Button'
-import ButtonLoading from '../components/ButtonLoading'
 
 const Home = () => {
     const { data, error, loading, getData, addData, deleteData, updateData } = useFirestore()
