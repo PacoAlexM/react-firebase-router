@@ -8,7 +8,6 @@ import InputForm from '../components/InputForm'
 import { formValidate } from '../utils/formValidate'
 import Title from '../components/Title'
 import Button from '../components/Button'
-import ButtonLoading from '../components/ButtonLoading'
 
 const Login = () => {
     const navegate = useNavigate()
@@ -63,7 +62,7 @@ const Login = () => {
                 >
                     <InputError error={ errors.password } />
                 </InputForm>
-                { loading ? <ButtonLoading /> : <Button buttonType="submit" text="Login" /> }
+                <Button type="submit" text="Login" isLoading={ loading } />
             </form>
         </>
     )

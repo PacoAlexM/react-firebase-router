@@ -8,7 +8,6 @@ import InputError from '../components/InputError'
 import InputForm from '../components/InputForm'
 import Title from '../components/Title'
 import Button from '../components/Button'
-import ButtonLoading from '../components/ButtonLoading'
 
 const Signin = () => {
     // const [email, setEmail] = useState('tester@mail.com')
@@ -104,7 +103,7 @@ const Signin = () => {
                 >
                     <InputError error={ errors.repassword } />
                 </InputForm>
-                { loading ? <ButtonLoading /> : <Button buttonType="submit" text="Create user" /> }
+                <Button type="submit" text="Create user" isLoading={ loading } />
             </form>
         </>
     )

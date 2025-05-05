@@ -8,7 +8,7 @@ const Navbar = () => {
 
     // Buttons
     const btnClassBlue = 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center'
-    const btnClassYellow = 'text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-4 py-2 text-center'
+    const btnClassRed = 'text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center'
     const btnClassPurple = 'text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-4 py-2 text-center'
 
     const handleOnClick = async () => {
@@ -30,7 +30,7 @@ const Navbar = () => {
                         user ? (
                             <>
                                 <NavLink to="/" className={ btnClassBlue }>Home</NavLink>
-                                <button type="button" className={ btnClassYellow } onClick={ handleOnClick }>Logout</button>
+                                <button type="button" className={ btnClassRed } onClick={ handleOnClick }>Logout</button>
                             </>
                         ) : (
                             <>

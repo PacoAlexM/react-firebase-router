@@ -1,3 +1,5 @@
-const Profile = () => (<h1>Profile</h1>)
+import Title from '../components/Title'
+
+const Profile = () => (<Title text="Profile" />)
 
 export default Profile

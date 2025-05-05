@@ -12,6 +12,7 @@ const UserProvider = ({ children }) => {
             if (user) {
                 const { email, photoURL, displayName, uid } = user
                 setUser({ email, photoURL, displayName, uid })
+                // console.log(user)
             } else setUser(null)
         })
 
