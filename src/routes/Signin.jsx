@@ -69,7 +69,7 @@ const Signin = () => {
             <Title text="Signin" />
             {/* errors.firebase && <p>{ errors.firebase.message }</p> */}
             <form onSubmit={ handleSubmit(onSubmit) }>
-                <InputForm type="email" placeholder="address@mail.com" label="Email" idElement="email" error={ errors.email }
+                <InputForm type="email" placeholder="address@mail.com" label="Email" id="email" error={ errors.email }
                 {
                     ...register('email', {
                         required,
@@ -79,7 +79,7 @@ const Signin = () => {
                 >
                     <InputError error={ errors.email } />
                 </InputForm>
-                <InputForm type="password" placeholder="Type your password" label="Password" idElement="password" error={ errors.password }
+                <InputForm type="password" placeholder="Type your password" label="Password" id="password" error={ errors.password }
                 {
                     ...register('password', {
                         required,
@@ -90,7 +90,7 @@ const Signin = () => {
                 >
                     <InputError error={ errors.password } />
                 </InputForm>
-                <InputForm type="password" label="Confirm your password" idElement="repassword" error={ errors.repassword }
+                <InputForm type="password" label="Confirm your password" id="repassword" error={ errors.repassword }
                 {
                     ...register('repassword', {
                         required: {

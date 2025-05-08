@@ -6,6 +6,7 @@ import Profile from './routes/Profile'
 import Navbar from './components/Navbar'
 import LayoutRequireAuth from './components/Layouts/LayoutRequireAuth'
 import LayoutContainer from './components/Layouts/LayoutContainer'
+import LayoutRedirect from './components/Layouts/LayoutRedirect'
 import { useContext } from 'react'
 import { UserContext } from './context/UserProvider'
 import NotFound from './routes/HttpError/NotFound'
@@ -27,7 +28,9 @@ const App = () => {
           <Route path="login" element={ <Login /> } />
           <Route path="signin" element={ <Signin /> } />
         </Route>
-        <Route path="*" element={ <NotFound /> } />
+        <Route path="/:nanoid" element={ <LayoutRedirect /> }>
+          <Route index element={ <NotFound /> } />
+        </Route>
       </Routes>
     </>
   )

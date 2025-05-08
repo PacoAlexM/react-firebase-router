@@ -41,7 +41,7 @@ const Login = () => {
         <>
             <Title text="Login" />
             <form onSubmit={ handleSubmit(onSubmit) }>
-                <InputForm type="email" placeholder="address@mail.com" label="Email" idElement="email" error={ errors.email }
+                <InputForm type="email" placeholder="address@mail.com" label="Email" id="email" error={ errors.email }
                 {
                     ...register('email', {
                         required,
@@ -51,7 +51,7 @@ const Login = () => {
                 >
                     <InputError error={ errors.email } />
                 </InputForm>
-                <InputForm type="password" placeholder="Type your password" label="Password" idElement="password" error={ errors.password }
+                <InputForm type="password" placeholder="Type your password" label="Password" id="password" error={ errors.password }
                 {
                     ...register('password', {
                         required,
